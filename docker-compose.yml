@@ -1,0 +1,22 @@
+services:
+  rippled:
+    hostname: rippled
+    image: 4fd7a7adda45
+    container_name: rippled
+    volumes:
+        - ./etc/:/etc/opt/ripple
+        - ./bin/:/opt/ripple/bin
+        - ./ledger-index-88071543/:/var/lib/rippled
+        - /home/bronekk/gits/rippled/:/home/bronekk/gits/rippled
+    # command: ["/opt/ripple/bin/rippled", "--conf", "/etc/opt/ripple/rippled.cfg"]
+    command: ["/usr/bin/bash", "-c", "while :; do sleep 2s; done"]
+    networks:
+     rippled_net:
+      ipv4_address: 169.254.21.3
+
+networks:
+  rippled_net:
+    driver: bridge
+    ipam:
+      config:
+      - subnet: 169.254.21.0/24
